@@ -12,8 +12,8 @@ RUN su ${user} -c /tmp/install_stack.sh
 COPY build_scripts/setup_stack.sh /tmp
 RUN su ${user} -c /tmp/setup_stack.sh
 
-COPY build_scripts/install_vscode.sh /tmp
-RUN /tmp/install_vscode.sh
+# COPY build_scripts/install_vscode.sh /tmp
+# RUN /tmp/install_vscode.sh
 
 RUN apt-get update && apt-get install -y \
     git \
