@@ -1,10 +1,3 @@
-alias pyser='python -m SimpleHTTPServer'
-
-function rebu
-{
-    find . -type f -name '*.hs' | xargs ls | entr sh -c 'echo;echo;echo;echo;echo;ghcjs -DGHCJS_GC_INTERVAL=60000 Main.hs; echo done'
-}
-
 export PATH=$HOME/.local/bin:$PATH
 
 
