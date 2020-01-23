@@ -1,37 +1,14 @@
-FROM sshd
+FROM sshd_so4
 
 ARG user
 ARG id
 
-RUN apt-get update && apt-get install -y \
-    curl 
-
-COPY build_scripts/install_stack.sh /tmp
+COPY install_stack.sh /tmp
 RUN su ${user} -c /tmp/install_stack.sh
 
-COPY build_scripts/setup_stack.sh /tmp
-RUN su ${user} -c /tmp/setup_stack.sh
+COPY install_vscode.sh /tmp
+RUN /tmp/install_vscode.sh
 
-# COPY build_scripts/install_vscode.sh /tmp
-# RUN /tmp/install_vscode.sh
+COPY install_hie_wrapper.sh /tmp
+RUN su ${user} -c /tmp/install_hie_wrapper.sh
 
-RUN apt-get update && apt-get install -y \
-    git \
-    vim-gtk 
-
-COPY build_scripts/setup_basic_vim_plugins.sh /tmp
-RUN su ${user} -c /tmp/setup_basic_vim_plugins.sh
-
-COPY build_scripts/setup_haskell_vim_plugins.sh /tmp
-RUN su ${user} -c /tmp/setup_haskell_vim_plugins.sh
-
-COPY build_scripts/personalize.sh /tmp
-RUN su ${user} -c ./personalize.sh
-
-COPY build_scripts/haskellBashrc /tmp
-RUN su ${user} -c 'cp /tmp/haskellBashrc ~'
-RUN su ${user} -c 'echo . ~/haskellBashrc | tee -a ~/.bashrc'
-
-COPY build_scripts/haskellVimrc /tmp
-RUN su ${user} -c 'cp /tmp/haskellVimrc ~'
-RUN su ${user} -c "echo so ~/haskellVimrc" | tee -a .vimrc
