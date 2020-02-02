@@ -1,9 +1,10 @@
 #! /bin/bash
 
-sudo apt install libicu-dev libtinfo-dev libgmp-dev
+code --install-extension alanz.vscode-hie-server 
 
-mkdir -p ~/tmp
-cd ~/tmp
+sudo apt install -y libicu-dev libtinfo-dev libgmp-dev
+
+cd /tmp
 
 git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
 cd haskell-ide-engine
